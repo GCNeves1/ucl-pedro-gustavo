@@ -30,7 +30,7 @@ internal class Program
             Console.WriteLine("Digite 3 para dar entrada no estoque");
             Console.WriteLine("Digite 4 para cadastrar uma fornecedora");
             Console.WriteLine("Digite 5 para ver clientes cadastrados");
-            Console.WriteLine("Digite -1 para sair");
+      
         }
 
         void clientes()

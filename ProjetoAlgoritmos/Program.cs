@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
+using System.Collections.Generic;
+using System.Linq;
 
 internal class Program
 {
@@ -9,9 +10,12 @@ internal class Program
         // Listas
         // Início das listas
         List<cadastroCliente> listaDeClientes = new List<cadastroCliente>();
+        List<estoque> listaDeProdutos = new List<estoque>();
+
         // Fim das listas
 
-        // Menu
+        // voids
+        //inicio dos voids
         void menu()
         {
             Console.Clear();
@@ -30,7 +34,9 @@ internal class Program
             Console.WriteLine("Digite 3 para dar entrada no estoque");
             Console.WriteLine("Digite 4 para cadastrar uma fornecedora");
             Console.WriteLine("Digite 5 para ver clientes cadastrados");
-      
+            Console.WriteLine("Digite 6 para ver produtos cadastrados");
+            Console.WriteLine("Digite -1 para ver sair do sistema");
+
         }
 
         void clientes()
@@ -81,6 +87,54 @@ internal class Program
             listaDeClientes.Add(novoCliente);
         }
 
+        void adicionarProduto()
+        {
+            Console.Clear();
+
+            estoque novoProduto = new estoque();
+
+            // Nome do produto
+            Console.WriteLine("Qual produto você gostaria de adicionar?");
+            novoProduto.SetProduto(Console.ReadLine());
+            Console.WriteLine();
+
+            // Valor do produto
+            Console.WriteLine("Qual o valor do produto?");
+            novoProduto.SetValor(float.Parse(Console.ReadLine()));
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine($"Você adicionou o produto: {novoProduto.GetProduto()} o valor dele é R${novoProduto.GetValor()}");
+            Thread.Sleep(5000);
+
+
+            listaDeProdutos.Add(novoProduto);
+        }
+
+        void produtos()
+        {
+            Console.Clear();
+            Console.WriteLine("**************************");
+            Console.WriteLine("LISTA DE PRODUTOS ADICIONADOS");
+            Console.WriteLine("**************************");
+            Console.WriteLine();
+
+            for (int i = 0; i < listaDeProdutos.Count; i++)
+            {
+                Console.WriteLine($"Produto {(i + 1)}:");
+                Console.WriteLine($"Nome: {listaDeProdutos[i].GetProduto()}");
+                Console.WriteLine($"Valor: R${listaDeProdutos[i].GetValor()}");
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Digite uma tecla para voltar ao menu principal");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+
+        //fim dos voids
+
         // Início do código
         bool continuarSwitch = true;
         while (continuarSwitch)
@@ -103,6 +157,7 @@ internal class Program
                     break;
                 case 3:
                     Console.WriteLine("Opção 3 escolhida");
+                    adicionarProduto();
                     break;
                 case 4:
                     Console.WriteLine("Opção 4 escolhida");
@@ -111,9 +166,17 @@ internal class Program
                     Console.WriteLine("Opção 4 escolhida");
                     clientes();
                     break;
+                case 6:
+                    produtos();
+                    break;
                 case -1:
                     continuarSwitch = false;
+                    Console.Clear();
+                    Console.WriteLine();
                     Console.WriteLine("Opção -1 escolhida");
+                    Console.WriteLine();
+                    Console.WriteLine("saindo do sistema");
+                    Thread.Sleep(5000);
                     break;
                 default:
                     Console.WriteLine("Opção inválida:");

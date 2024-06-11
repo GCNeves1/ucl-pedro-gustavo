@@ -1,27 +1,34 @@
-﻿class estoque
+﻿using System;
+using System.Collections.Generic;
+
+namespace Padaria
 {
-    private string produto { get; set; }
-    private float valor { get; set; }
 
-    //produto
-    public string GetProduto()
+    class estoque
     {
-        return this.produto;
-    }
+        private string produto { get; set; }
+        private float valor { get; set; }
 
-    public void SetProduto(string produto)
-    {
-        this.produto = produto;
-    }
+        //produto
+        public string GetProduto()
+        {
+            return this.produto;
+        }
 
-    //valor
-    public float GetValor()
-    {
-        return this.valor;
-    }
+        public void SetProduto(string produto)
+        {
+            this.produto = produto;
+        }
 
-    public void SetValor(float valor)
-    {
-        this.valor = valor;
+        //valor
+        public float GetValor()
+        {
+            return this.valor;
+        }
+
+        public void SetValor(float valor)
+        {
+            this.valor = valor;
+        }
     }
 }

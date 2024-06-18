@@ -1,8 +1,7 @@
-﻿using Padaria;
-using System.Threading;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 
 namespace Padaria
 {
@@ -58,8 +57,22 @@ namespace Padaria
             float total = carrinho.Sum(item => item.produto.GetValor() * item.quantidade);
             Console.WriteLine($"Total do carrinho: R${total}");
             Console.WriteLine();
-            Console.Write("Digite o valor pago pelo cliente: ");
-            float valorPago = float.Parse(Console.ReadLine());
+
+            float valorPago = 0;
+            while (true)
+            {
+                Console.Write("Digite o valor pago pelo cliente: ");
+                valorPago = float.Parse(Console.ReadLine());
+
+                if (valorPago >= total)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"Valor insuficiente. O total do carrinho é R${total}. Por favor, digite um valor igual ou superior.");
+                }
+            }
 
             float troco = valorPago - total;
             Console.WriteLine($"Troco: R${troco}");

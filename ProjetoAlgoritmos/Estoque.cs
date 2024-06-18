@@ -1,34 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Padaria
+﻿namespace Padaria
 {
-
-    class estoque
+    public class estoque
     {
         private string produto { get; set; }
         private float valor { get; set; }
 
-        //produto
-        public string GetProduto()
+        public string GetProduto() => this.produto;
+        public void SetProduto(string produto) => this.produto = produto;
+        public float GetValor() => this.valor;
+        public void SetValor(float valor) => this.valor = valor;
+
+        public override string ToString()
         {
-            return this.produto;
+            return $"{produto},{valor}";
         }
 
-        public void SetProduto(string produto)
+        public static estoque FromString(string data)
         {
-            this.produto = produto;
-        }
-
-        //valor
-        public float GetValor()
-        {
-            return this.valor;
-        }
-
-        public void SetValor(float valor)
-        {
-            this.valor = valor;
+            var parts = data.Split(',');
+            return new estoque
+            {
+                produto = parts[0],
+                valor = float.Parse(parts[1])
+            };
         }
     }
 }

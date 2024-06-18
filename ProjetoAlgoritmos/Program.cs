@@ -1,24 +1,19 @@
 ﻿using System;
-using System.Threading;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading;
 
 namespace Padaria
 {
-
     public class Program
     {
         public static void Main(string[] args)
         {
-            // Listas
-            // Início das listas
-            List<cadastroCliente> listaDeClientes = new List<cadastroCliente>();
-            List<estoque> listaDeProdutos = new List<estoque>();
+            List<cadastroCliente> listaDeClientes = DataPersistence.LoadClientes();
+            List<estoque> listaDeProdutos = DataPersistence.LoadProdutos();
 
-            // Fim das listas
 
-            // voids
-            //inicio dos voids
+            listaDeProdutos = DataPersistence.LoadProdutos();
+
             void menu()
             {
                 Console.Clear();
@@ -35,11 +30,9 @@ namespace Padaria
                 Console.WriteLine("Digite 1 para registrar uma venda");
                 Console.WriteLine("Digite 2 para cadastrar cliente");
                 Console.WriteLine("Digite 3 para dar entrada no estoque");
-                Console.WriteLine("Digite 4 para cadastrar uma fornecedora");
-                Console.WriteLine("Digite 5 para ver clientes cadastrados");
-                Console.WriteLine("Digite 6 para ver produtos cadastrados");
-                Console.WriteLine("Digite -1 para ver sair do sistema");
-
+                Console.WriteLine("Digite 4 para ver clientes cadastrados");
+                Console.WriteLine("Digite 5 para ver produtos cadastrados");
+                Console.WriteLine("Digite -1 para sair do sistema");
             }
 
             void registrarVenda()
@@ -74,26 +67,22 @@ namespace Padaria
             void cadastro()
             {
                 Console.Clear();
-                // Criação de um novo cliente
                 cadastroCliente novoCliente = new cadastroCliente();
 
-                // Nome
                 Console.WriteLine("Qual cliente você gostaria de registrar ?");
                 novoCliente.SetNome(Console.ReadLine());
                 Console.WriteLine();
 
-                // Telefone
                 Console.WriteLine("Qual o telefone do cliente:");
                 novoCliente.SetTelefone(Console.ReadLine());
                 Console.WriteLine();
 
-                // Email
                 Console.WriteLine("Qual o email do cliente:");
                 novoCliente.SetEmail(Console.ReadLine());
                 Console.WriteLine();
 
-                // Adiciona o novo cliente à lista de clientes
                 listaDeClientes.Add(novoCliente);
+                DataPersistence.SaveClientes(listaDeClientes);
             }
 
             void adicionarProduto()
@@ -102,12 +91,10 @@ namespace Padaria
 
                 estoque novoProduto = new estoque();
 
-                // Nome do produto
                 Console.WriteLine("Qual produto você gostaria de adicionar?");
                 novoProduto.SetProduto(Console.ReadLine());
                 Console.WriteLine();
 
-                // Valor do produto
                 Console.WriteLine("Qual o valor do produto?");
                 novoProduto.SetValor(float.Parse(Console.ReadLine()));
                 Console.WriteLine();
@@ -115,8 +102,8 @@ namespace Padaria
                 Console.WriteLine($"Você adicionou o produto: {novoProduto.GetProduto()} o valor dele é R${novoProduto.GetValor()}");
                 Thread.Sleep(5000);
 
-
                 listaDeProdutos.Add(novoProduto);
+                DataPersistence.SaveProdutos(listaDeProdutos);
             }
 
             void produtos()
@@ -140,11 +127,6 @@ namespace Padaria
                 Console.ReadKey();
                 Console.Clear();
             }
-
-
-
-
-            //fim dos voids
 
             // Início do código
             bool continuarSwitch = true;
@@ -181,27 +163,17 @@ namespace Padaria
                         break;
                     case 4:
                         Console.WriteLine("Opção 4 escolhida");
-                        break;
-                    case 5:
-                        Console.WriteLine("Opção 4 escolhida");
                         clientes();
                         break;
-                    case 6:
+                    case 5:
+                        Console.WriteLine("Opção 5 escolhida");
                         produtos();
                         break;
                     case -1:
                         continuarSwitch = false;
-                        Console.Clear();
-                        Console.WriteLine();
-                        Console.WriteLine("Opção -1 escolhida");
-                        Console.WriteLine();
-                        Console.WriteLine("saindo do sistema");
-                        Thread.Sleep(5000);
                         break;
                     default:
-                        Console.WriteLine("Opção inválida:");
-                        Thread.Sleep(2000);
-                        menu();
+                        Console.WriteLine("Opção inválida. Tente novamente.");
                         break;
                 }
             }

@@ -1,47 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Padaria
+﻿namespace Padaria
 {
-    class cadastroCliente
+    public class cadastroCliente
     {
         private string nome { get; set; }
         private string telefone { get; set; }
         private string email { get; set; }
 
-        // Nome
-        public string GetNome()
+        public string GetNome() => this.nome;
+        public void SetNome(string nome) => this.nome = nome;
+        public string GetTelefone() => this.telefone;
+        public void SetTelefone(string telefone) => this.telefone = telefone;
+        public string GetEmail() => this.email;
+        public void SetEmail(string email) => this.email = email;
+
+        public override string ToString()
         {
-            return this.nome;
+            return $"{nome},{telefone},{email}";
         }
 
-        public void SetNome(string nome)
+        public static cadastroCliente FromString(string data)
         {
-            this.nome = nome;
+            var parts = data.Split(',');
+            return new cadastroCliente
+            {
+                nome = parts[0],
+                telefone = parts[1],
+                email = parts[2]
+            };
         }
-
-        // Telefone
-        public string GetTelefone()
-        {
-            return this.telefone;
-
-        }
-
-        public void SetTelefone(string telefone)
-        {
-            this.telefone = telefone;
-        }
-
-        // Email
-        public string GetEmail()
-        {
-            return this.email;
-        }
-
-        public void SetEmail(string email)
-        {
-            this.email = email;
-        }
-
     }
 }
